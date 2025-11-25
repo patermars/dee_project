@@ -1,5 +1,4 @@
 services:
-  # Web Service
   - type: web
     name: traffic-ingestion
     env: python
@@ -22,7 +21,6 @@ services:
       - key: TOMTOM_API_KEY
         sync: false
 
-  # Cron Job (calls /ingest every minute)
   - type: cron
     name: traffic-ingestion-cron
     env: python
