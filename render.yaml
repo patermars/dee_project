@@ -1,0 +1,31 @@
+services:
+  # Web Service
+  - type: web
+    name: traffic-ingestion
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: MYSQL_HOST
+        sync: false
+      - key: MYSQL_USER
+        sync: false
+      - key: MYSQL_PASSWORD
+        sync: false
+      - key: MYSQL_DATABASE
+        sync: false
+      - key: MYSQL_PORT
+        sync: false
+      - key: TOMTOM_API_KEY
+        sync: false
+
+  # Cron Job (calls /ingest every minute)
+  - type: cron
+    name: traffic-ingestion-cron
+    env: python
+    schedule: "* * * * *"
+    buildCommand: pip install requests
+    startCommand: python -c "import requests; requests.get('https://traffic-ingestion.onrender.com/ingest')"
