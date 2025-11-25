@@ -8,11 +8,11 @@ import random
 app = Flask(__name__)
 
 DB_CONFIG = {
-    'host': "mysql.railway.internal",
+    'host': "tramway.proxy.rlwy.net",
     'user': "root",
     'password': "cPirYIbjHosWGnPqxATBhipfheDtnBLa",
     'database': "railway",
-    'port': 3306,
+    'port': 49438,
     'connect_timeout': 10,
     'charset': 'utf8mb4'
 }
@@ -336,5 +336,4 @@ def ingest_data():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))
-
     app.run(host='0.0.0.0', port=port, debug=False)
